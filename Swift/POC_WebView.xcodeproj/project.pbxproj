@@ -16,6 +16,7 @@
 		184D0FEE2583592E005FDB08 /* POC_WebViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D0FED2583592E005FDB08 /* POC_WebViewTests.swift */; };
 		184D0FF92583592F005FDB08 /* POC_WebViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D0FF82583592F005FDB08 /* POC_WebViewUITests.swift */; };
 		184D100A25836229005FDB08 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D100925836229005FDB08 /* WebViewViewController.swift */; };
+		CD596AAF25B023D200E7012B /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD596AAE25B023D200E7012B /* DashboardViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		184D0FF82583592F005FDB08 /* POC_WebViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POC_WebViewUITests.swift; sourceTree = "<group>"; };
 		184D0FFA2583592F005FDB08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		184D100925836229005FDB08 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
+		CD596AAE25B023D200E7012B /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				184D0FE12583592E005FDB08 /* LaunchScreen.storyboard */,
 				184D0FE42583592E005FDB08 /* Info.plist */,
 				184D100925836229005FDB08 /* WebViewViewController.swift */,
+				CD596AAE25B023D200E7012B /* DashboardViewController.swift */,
 			);
 			path = POC_WebView;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 			files = (
 				184D0FDB2583592C005FDB08 /* ViewController.swift in Sources */,
 				184D0FD72583592C005FDB08 /* AppDelegate.swift in Sources */,
+				CD596AAF25B023D200E7012B /* DashboardViewController.swift in Sources */,
 				184D100A25836229005FDB08 /* WebViewViewController.swift in Sources */,
 				184D0FD92583592C005FDB08 /* SceneDelegate.swift in Sources */,
 			);

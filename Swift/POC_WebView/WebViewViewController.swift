@@ -12,6 +12,9 @@ import Photos
 class WebViewViewController: UIViewController,WKNavigationDelegate, WKScriptMessageHandler, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     @IBOutlet weak var loadingCircle: UIActivityIndicatorView!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var sessionTimeoutButton: UIButton!
     
     var webView: WKWebView!
     var userToken: String? = ""
@@ -19,6 +22,8 @@ class WebViewViewController: UIViewController,WKNavigationDelegate, WKScriptMess
         super.viewDidLoad()
         createToken()
         webviewSetup()
+        logoutButton.addTarget(self, action: #selector(logoutDidTapped), for: .touchUpInside)
+        sessionTimeoutButton.addTarget(self, action: #selector(sessionTimeoutDidTapped), for: .touchUpInside)
     }
     
     func createToken()  {
@@ -29,12 +34,13 @@ class WebViewViewController: UIViewController,WKNavigationDelegate, WKScriptMess
     }
     
     func webviewSetup(){
-        webView = WKWebView()
+        webView = WKWebView(frame: self.containerView.frame)
+        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         webView.navigationDelegate = self
-        view = webView
         let url = URL(string: "http://127.0.0.1:3000/")! // URL of local website
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
+        containerView.addSubview(webView)
         // Setup for receive message
         let contentController = self.webView.configuration.userContentController
         contentController.add(self, name: "toggleMessageHandler")
@@ -72,7 +78,7 @@ class WebViewViewController: UIViewController,WKNavigationDelegate, WKScriptMess
         switch type {
         case "logout":
             print(msgRecive)
-            logOut()
+//            logOut()
         case "deletetoken":
             print(msgRecive)
         case "imagePermission":
@@ -96,7 +102,31 @@ class WebViewViewController: UIViewController,WKNavigationDelegate, WKScriptMess
         }
     }
     
+}
+
+// MARK: -Actions
+@objc extension WebViewViewController {
     
+    func logoutDidTapped() {
+        print("---Clear token---")
+        webView!.evaluateJavaScript("deleteToken()", completionHandler: nil)
+        webView!.evaluateJavaScript("logOut()", completionHandler: nil)
+        logOut()
+    }
+    
+    func sessionTimeoutDidTapped() {
+        print("---Clear token---")
+        webView!.evaluateJavaScript("deleteToken()", completionHandler: nil)
+        webView!.evaluateJavaScript("logOut()", completionHandler: nil)
+        navigateToLogin()
+    }
+    
+    func navigateToLogin() {
+        let story = UIStoryboard(name: "Main", bundle:nil)
+        let loginViewController = story.instantiateViewController(withIdentifier: "LoginViewController") as! ViewController
+        UIApplication.shared.windows.first?.rootViewController = loginViewController
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
+    }
     
 }
 
