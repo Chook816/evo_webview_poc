@@ -78,7 +78,7 @@ class WebViewViewController: UIViewController,WKNavigationDelegate, WKScriptMess
         switch type {
         case "logout":
             print(msgRecive)
-//            logOut()
+        //            logOut()
         case "deletetoken":
             print(msgRecive)
         case "imagePermission":
@@ -94,6 +94,31 @@ class WebViewViewController: UIViewController,WKNavigationDelegate, WKScriptMess
     }
     
     func requestPermission(){
+        let status = PHPhotoLibrary.authorizationStatus()
+        if status == .authorized {
+            print("already authorized")
+            openPhotoLibrary()
+        } else {
+            PHPhotoLibrary.requestAuthorization({(_ status: PHAuthorizationStatus) -> Void in
+                switch status {
+                case .authorized:
+                    print("Authorized")
+                case .denied:
+                    print("Denied")
+                case .notDetermined:
+                    print("Not determined")
+                case .restricted:
+                    print("Restricted")
+                case .limited:
+                    print("Limited")
+                @unknown default:
+                    print("Unknown")
+                }
+            })
+        }
+    }
+    
+    func openPhotoLibrary() {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let imagePickerController = UIImagePickerController()
             imagePickerController.delegate = self;
@@ -108,15 +133,11 @@ class WebViewViewController: UIViewController,WKNavigationDelegate, WKScriptMess
 @objc extension WebViewViewController {
     
     func logoutDidTapped() {
-        print("---Clear token---")
-        webView!.evaluateJavaScript("deleteToken()", completionHandler: nil)
         webView!.evaluateJavaScript("logOut()", completionHandler: nil)
         logOut()
     }
     
     func sessionTimeoutDidTapped() {
-        print("---Clear token---")
-        webView!.evaluateJavaScript("deleteToken()", completionHandler: nil)
         webView!.evaluateJavaScript("logOut()", completionHandler: nil)
         navigateToLogin()
     }
